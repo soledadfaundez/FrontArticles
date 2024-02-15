@@ -1,0 +1,13 @@
+.container {
+display: flex;
+justify-content: bottom; /* Centra los elementos horizontalmente */
+}
+
+.item {
+margin-right: 10px; /* Espacio entre objetos */
+justify-content: bottom; /* Centra los elementos horizontalmente */
+}
+
+.mano {
+cursor: pointer;
+}

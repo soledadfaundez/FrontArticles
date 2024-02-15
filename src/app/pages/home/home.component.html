@@ -1,0 +1,86 @@
+
+<h2 class="m-0 font-weight-bold">Home Articles</h2>
+
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="page-item" >      
+      <div class="page-link " [ngClass]="{'disabled': !previous}" (click)="fetchPrevious()">Previous</div>
+    </li>
+    <li class="page-item ">      
+      <div class="page-link  " [ngClass]="{'disabled': !next}"  (click)="fetchNext()">Next</div>    
+    </li>
+    <li class="page-item" >
+      <div class="container">
+        <div class="item">
+          <label for="numPages">Details per page:</label>
+          <select  (change)="onSelect($event)" [(ngModel)]="cantPages" id="numPages" name="numPages" >
+            <option *ngFor="let option of optionsCantPages" [value]="option.value">{{ option.label }}</option>
+          </select>
+
+        </div>
+      </div>
+    </li>
+    <li class="page-item" >
+      <div class="container">
+        <div class="item ">
+          <label for="filtar">Search articles :</label>
+          <input type="text" id="filtar" name="filtar" [(ngModel)]="filtroTitulo" (ngModelChange)="onTextoChange($event)">
+        </div>
+      </div>
+    </li>
+    <li class="page-item" >
+      <div class="container">
+        <div class="item ">
+          <label>Total articles published  : {{count}}</label>          
+        </div>
+      </div>
+    </li>
+  </ul>
+</nav>
+
+<div>
+  <article class="content">
+    <section>
+      <div *ngIf="mostrandoSpinner">
+        <!-- Aquí puedes colocar el código HTML o el componente de tu spinner -->
+        <p>Cargando...</p>
+      </div>
+
+      <div *ngIf="mostrarNoHayRegistros">
+        <!-- Aquí puedes colocar el código HTML o el componente de tu spinner -->
+        <p>..No records with filter conditions...</p>
+      </div>
+      
+      <div class="table-responsive" *ngIf="!mostrandoSpinner">
+        <table datatable class="row-border hover" style="width: 100%;">
+          <thead>
+            <tr>                                       
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data">
+              <!-- Celdas de la tabla -->      
+              <div class="card" style="width: 100%;">
+                <div class="card-header">
+                  <button class="btn btn-success btn-sm" *ngIf="item.botonAgrega" (click)="botonPresionadoAgrega(item)">Add favorites</button>
+                  <button class="btn btn-secondary btn-sm" *ngIf="item.botonRemueve" (click)="botonPresionadoRemueve(item)">Remove favorites</button>                                                                                                                                                
+                  <strong> Title: {{item.news_site}} - {{item.title}}</strong>                                      
+                </div>
+                <div class="card-body">          
+                  <p class="card-text">Published on : {{item.published_at | date:'dd MMM yyyy' }} </p>         
+                  <p class="card-text">Summary : {{item.summary}}</p>   
+                </div>                
+              </div>
+              <br>
+            </tr>
+          </tbody>
+         </table>
+      </div>
+    </section>
+  </article>
+
+  
+</div>
+
+  
+
